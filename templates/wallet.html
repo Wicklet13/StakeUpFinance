@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}My Wallet{% endblock %}
+
+{% block body  %}
+<p class="title">{{ current_user.name }}'s Wallet</p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <p class="descriptor">Wallet Address:</p>
+            <p class="text">{{ address }}</p>
+        </div>
+
+        <div class="col-sm-2">
+            <p class="descriptor">BNB Balance:</p>
+            <p class="text">{{ bnb_balance }}</p>
+            <a href="/transfer/BNB" class="text">
+                <input type="button" value="Transfer BNB">
+            </a>
+        </div>
+
+        <div class="col-sm-4">
+            <p class="descriptor">StakeUp Balance:</p>
+            <p class="text">{{ stakeup_balance }}</p>
+            <a href="/transfer" class="text">
+                <input type="button" value="Transfer StakeUp">
+            </a>
+        </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>Sent Transactions</h2>
+            <hr>
+            {% if from_txs %}
+            {% for tx in from_txs %}
+                <p>To: {{ tx.to_address }}</p>
+                <p>Amount: {{ tx.amount }} {{ tx.token_name }}</p>
+                {% if status == 0 %}
+                    <p class="color: red">Failed</p>
+                {% elif status == 1 %}
+                    <p>Pending</p>
+                {% else %}
+                    <p class="color: green">Sucess</p>
+                {% endif %}
+            <hr>
+            {% endfor %}
+            {% endif %}
+    </div>
+        <div class="col-sm-6">
+            <h2>Recieved Transactions</h2>
+            <hr>
+            {% if to_txs %}
+            {% for tx in to_txs %}
+                <p>From: {{ tx.from_address }}</p>
+                <p>Amount: {{ tx.amount }} {{ tx.token_name }}</p>
+                {% if status == 0 %}
+                    <p>Failed</p>
+                {% elif status == 1 %}
+                    <p>Pending</p>
+                {% else %}
+                    <p>Sucess</p>
+                {% endif %}
+            <hr>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Create Account{% endblock %}
+
+{% block body %}
+
+{% if error %}
+    <p>{{ error }}</p>
+{% endif %}
+
+<div class="form">
+    <h2 class="title">Create Account</h2>
+
+    <form method="post" action="">
+        {{ form.hidden_tag() }}
+        <p class="form-element">{{ form.name }}</p>
+        <p class="form-element">{{ form.email }}</p>
+        <p class="form-element">{{ form.password }}</p>
+        <p class="form-element">{{ form.private_key }}</p>
+        <p class="form-element">{{ form.submit }}</p>
+    </form>
+
+    <br>
+
+    <p class="text">Already have an account?</p>
+    <a href="/login">
+        <input type="button" value="Login">
+    </a>
+    <br>
+    <br>
+    <div id="wallet_exists">
+        <p class="text">Already have an Ethereum or Binance Wallet?</p>
+        <input type='button' value="Sign Up With Private Key" onclick="(function(){
+            priv_inp = document.getElementById('private_key')
+            priv_inp.disabled=false;
+            priv_inp.hidden=false;
+            document.getElementById('wallet_exists').hidden=true;
+        })()">
+    </div>
+
+</div>
+
+{% endblock %}

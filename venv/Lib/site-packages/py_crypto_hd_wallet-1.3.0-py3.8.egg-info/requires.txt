@@ -1,0 +1,10 @@
+bip_utils<3.0.0,>=2.6.1
+
+[develop]
+coverage>=5.3
+flake8>=3.8
+isort>=5.8
+mypy>=0.900
+prospector[with_mypy,with_pyroma]>=1.7
+pytest>=7.0
+pytest-cov>=2.10

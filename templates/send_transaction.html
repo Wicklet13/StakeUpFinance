@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Transact{% endblock %}
+
+{% block body %}
+<div class="form">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10">
+                <h2 class="title">Send a Transaction*</h2>
+
+                <form method="post" role="form">
+                    {{ form.hidden_tag() }}
+                    <p class="form-element">{{ form.to_address }}</p>
+                    <p class="form-element">{{ form.amount }}</p>
+                    {% if token == "BNB"%}
+                        <script>document.getElementById("amount").placeholder="BNB Amount"</script>
+                    {% endif %}
+                    <p class="form-element">{{ form.password }}</p>
+                    <input type="button" value="Transfer" class="transact-btn" id="transact-btn" onclick="transfer('{{ token }}')">
+                </form>
+
+                <br>
+                <br>
+
+                <p class="subscript">*Every StakeUp Transaction Requires BNB</p>
+            </div>
+                <div class="col-sm-2">
+                    <div class="centered-element">
+                        <div class="btn-group-vertical" role="group" aria-label="Basic example">
+                            {% for parent in group[0] %}
+                                {% if parent.name != current_user.name %}
+                            <button type="button" class="btn btn-secondary" id="{{ parent.email }}" name="{{ parent.email }}" onclick="setAddress(document.getElementById('{{ parent.email }}'))" value="{{ parent.email }}">{{ parent.email }}</button>
+                                {% endif %}
+                            {% endfor %}
+                            <hr>
+                            {% for child in group[1] %}
+                                {% if child.name != current_user.name %}
+                                        <button type="button" class="btn btn-secondary" id="{{ child.name }}" name="{{ child.name }}" onclick="setAddress(document.getElementById('{{ child.name }}'))" value="{{ child.name }}">{{ child.name }}</button>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div
+{% endblock %}

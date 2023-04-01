@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Manage My Account{% endblock %}
+
+{% block body %}
+
+<p class="title">{{ current_user.name }}'s Family Group</p>
+
+<div class="form">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Parents</h2>
+                {% for parent in family_group[0] %}
+                    <p class="text">{{ parent.name }}</p>
+                {% endfor %}
+
+                {% if is_parent %}
+
+                <form method="post" id="add-parent-form" class="parent-form" role='parent-form' hidden=true>
+                    <p class="form-element"><input type="text" id='parent-name' name="parent-name" placeholder="Parent's Name"></p>
+                    <p class="form-element"><input type="text" id="parent-email" name="parent-email" placeholder="Parent's Email"></p>
+                    <p class="form-element"><input type="password" id="parent-password" name="parent-password"placeholder="Parent's Password"></p>
+                    <p class="form-element"><input type="button" value="Add Parent" class="add-parent-btn" id="add-parent-btn" onclick="addParent()"></p>
+                </form>
+
+                <input type="button" id='show-add-parent-button' value='Add Parent' onclick="(function(){
+                    document.getElementById('add-parent-form').hidden=false;
+                    document.getElementById('add-child-form').disabled=true;
+                    document.getElementById('show-add-parent-button').hidden=true;
+                    document.getElementById('show-add-child-button').hidden=true;
+                })()">
+
+                {% endif %}
+            </div>
+            <div class="col-sm-6">
+                <h2>Children</h2>
+                {% for child in family_group[1] %}
+                    <p class="text">{{ child.name }}</p>
+                {% endfor %}
+                {% if is_parent %}
+                    <form method="post" id="add-child-form" class="child-form" role="child-form" hidden=true>
+                        <p class="form-element"><input type="text" name='child-name' placeholder="Child's Name"></p>
+                        <p class="form-element"><input type="password" name="child-password" placeholder="Child's Password"></p>
+                        <p class="form-element"><input type="button" value="Add Child" class="add-child-btn" id="add-child-btn" onclick="addChild()"></p>
+                    </form>
+                    <input type="button" id='show-add-child-button' value='Add Children' onclick="(function(){
+                            document.getElementById('add-child-form').hidden=false;
+                            document.getElementById('add-parent-form').disabled=true;
+                            document.getElementById('show-add-child-button').hidden=true;
+                            document.getElementById('show-add-parent-button').hidden=true;
+                        })()">
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock %}
